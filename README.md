@@ -88,3 +88,21 @@ The data will be kept in S3 for long-term persistent storage, and wait to be pro
 
 
 ### Task 4: Batch Processing - Process The Data Using Spark 
+I identified areas in the data that needed cleaning, such as replacing 'k' and 'M' with zeros for follower count, removing 'local save in', and dropping the index column. I rearranged the columns to display more important data first.
+
+Next, I wrote a script to read the data from the S3 bucket using Spark. Then, I wrote Spark code to clean the data as previously specified.
+
+### Task 5: Batch Processing: Orchestrate The Batch Processing Using Airflow
+
+This task involves using Airflow to schedule and automate Spark batch processing jobs to run periodically on the data stored in the S3 bucket. Airflow allows us to set the schedule for these jobs and ensures that each step of the workflow is executed in the correct order. Additionally, Airflow provides monitoring capabilities for each job and alerts us of any failures, enabling quick resolution.
+
+### Task 6: Streaming Kafka-Spark Integration
+Similar to the batch consumer pipeline, I integrated Kafka and Spark to extract and transform the data transmitted to the Kafka topic. To enable this integration, I created an environment with Pyspark and Kafka integration packages. I then created a stream session to read and load the data from the Kafka topic. 
+
+### Task 7: Spark Steaming
+ As part of my task, I applied transformations and computations to the streaming data. I computed the total sum of followers in each micro-batch and the total number of followers per category.
+
+For cleaning transformations, I followed a similar process to the batch consumer pipeline. Specifically, I created a structured dataframe for the value column of the Kafka message, dropped all null columns, and replaced any error messages.
+
+### Task 8: Streaming Storage
+To load the Spark DataFrame onto a PostgreSQL database, I created a local PostgreSQL database with a schema that matched the attributes of the processed event.
