@@ -42,14 +42,14 @@ To complete this task, I downloaded the Pinterest infrastructure, which included
 
 For the first task, I created a Kafka topic by running zookeeper and kafka. The code to do this is as follows:
 
-'''
+```
 bin/kafka-topics.sh --create --topic Pinterest_Project --partitions 1 --replication-factor 1 --bootstrap-server localhost:9092
-'''
+```
 I then created a Kafka Producer using kafka-python to send data from the API to the topic.
 
 Next, I created two identical consumer pipelines: a batch processing pipeline and a streaming pipeline. Both pipelines were required to extract data from the Kafka topic. To create the pipelines, I wrote two Python files - batch_consumer.py for the batch processing pipeline and streaming_consumer.py for the real-time streaming pipeline. I used the python-kafka library to make a consumer that received data from the topic created previously.
 
-'''
+```python
 from kafka import KafkaConsumer
 from json import loads
 
@@ -67,7 +67,7 @@ for message in stream_consumer:
     print(message.topic)
     print(message.timestamp)
 
-'''
+```
 
 To test the pipelines, I ran the API, the user emulation script, and each consumer in separate terminals simultaneously. I verified that both consumers were receiving the data sent to the topic.
 
@@ -76,11 +76,11 @@ To complete this milestone, I created a new AWS S3 bucket to receive data from t
 
 The first thing I did was to create an S3 bucket by using boto3. I did this by creating the following method in my batch consumer python file:
 
-'''
+```python
 def s3_bucket(self):
         self.s3.create_bucket(Bucket=self.bucket_name,CreateBucketConfiguration={
          'LocationConstraint': 'eu-west-1',})
-'''
+```
 
 To extract messages from the consumer in batch_consumer.py, I used Kafka-Python. Once the data was received by the Kafka consumer, I used boto3 to send it to the S3 bucket that I had created.
 
